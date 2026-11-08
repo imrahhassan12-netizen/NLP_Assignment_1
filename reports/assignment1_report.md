@@ -5,7 +5,7 @@
 **Course:** Natural Language Processing  
 **Assignment:** 1 – Dataset Exploration and Text Preprocessing  
 **Project Topic:** Movie Reviews Sentiment Analysis  
-**Dataset:** IMDB Movie Reviews Dataset  
+**Dataset:** IMDB Movie Reviews Dataset
 
 ## Team Members
 
@@ -246,6 +246,8 @@ Vocabulary was measured across the full dataset before and after cleaning.
 
 The vocabulary decreased because HTML tags, URLs, rating expressions, common stopwords, and different word forms were handled during preprocessing.
 
+This reduction shows that text preprocessing helped remove unnecessary vocabulary and made the reviews more consistent for further Natural Language Processing tasks.
+
 ## 5.3 Example of Cleaning
 
 **Original review:**
@@ -273,7 +275,7 @@ To reproduce the process:
 1. Install Python.
 2. Create and activate a virtual environment.
 3. Install dependencies using `pip install -r requirements.txt`.
-4. Place the original dataset file named `IMDB Dataset.csv` in the main project folder.
+4. Place the original dataset file named `IMDB Dataset.csv` inside the `data/raw/` folder.
 5. Run `python src/download_dataset.py`.
 6. Run `python src/tokenization.py`.
 7. Run `python src/clean_text.py`.
@@ -282,13 +284,13 @@ The scripts generate the prepared and cleaned datasets and display tokenization 
 
 # 7. Conclusion
 
-In this assignment, we explored the IMDB movie review dataset and implemented a text preprocessing pipeline.
+In this assignment, we explored the IMDB Movie Reviews dataset and implemented a text preprocessing pipeline.
 
 We examined dataset statistics, sentiment distribution, vocabulary size, and tokenization methods. We also identified common text problems such as HTML tags, contractions, URLs, ratings, and hyphenated words.
 
 The cleaning pipeline applies Unicode normalization, noise removal, contraction handling, lowercase conversion, tokenization, stopword removal, and Porter stemming.
 
-The vocabulary decreased from 100,678 to 70,147 unique words after cleaning, representing approximately a 30.3% reduction.
+The vocabulary decreased from **100,678 to 70,147 unique words**, representing a reduction of **30,531 words (approximately 30.3%)**.
 
 The cleaned dataset is now prepared for subsequent sentiment analysis tasks.
 

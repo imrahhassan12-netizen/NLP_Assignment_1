@@ -17,7 +17,7 @@ The dataset contains movie reviews labelled as positive or negative. The purpose
 - **Negative Reviews:** 25,000
 - **Format:** CSV
 
-**Note:** The original raw dataset is not included in this repository. Download it from the source and place the file named `IMDB Dataset.csv` in the project root directory, alongside `README.md`.
+**Note:** The original raw dataset is not included in this repository. Download it from the source and place the file named `IMDB Dataset.csv` inside the `data/raw/` folder.
 
 Please refer to the Zenodo record for the dataset's licence and usage conditions.
 
@@ -36,6 +36,7 @@ Please refer to the Zenodo record for the dataset's licence and usage conditions
 NLP_Assignment_1/
 │
 ├── data/
+│   ├── raw/
 │   └── processed/
 │
 ├── src/
@@ -91,18 +92,26 @@ Download the IMDB dataset from:
 
 [https://zenodo.org/records/7928582](https://zenodo.org/records/7928582)
 
-Place the downloaded CSV file in the project root directory.
+Create the `data/raw/` folder if it does not already exist.
 
-The expected filename is:
+Place the downloaded CSV file inside that folder.
+
+The expected file path is:
 
 ```text
-IMDB Dataset.csv
+data/raw/IMDB Dataset.csv
 ```
 
 ### 6. Run Dataset Preparation
 
 ```bash
 python src/download_dataset.py
+```
+
+This script prepares the dataset and saves the processed file in:
+
+```text
+data/processed/imdb_reviews.csv
 ```
 
 ### 7. Run Tokenization Comparison
@@ -117,10 +126,10 @@ python src/tokenization.py
 python src/clean_text.py
 ```
 
-The processed and cleaned datasets are saved in:
+The cleaned dataset is saved as:
 
 ```text
-data/processed/
+data/processed/cleaned_reviews.csv
 ```
 
 ## Dataset Exploration
@@ -168,7 +177,7 @@ The cleaned dataset is saved as `cleaned_reviews.csv` in `data/processed/`.
 
 ## Team Members
 
-- **Imrah** – Roll No: 0293
+- **Imrah Maqsood** – Roll No: 0293
 - **Ajwa** – Team Member
 
 ## Assignment Deliverables
@@ -183,3 +192,4 @@ The cleaned dataset is saved as `cleaned_reviews.csv` in `data/processed/`.
 ## Repository
 
 GitHub: [NLP_Assignment_1](https://github.com/imrahhassan12-netizen/NLP_Assignment_1)
+)
