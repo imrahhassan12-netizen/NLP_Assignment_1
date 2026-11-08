@@ -4,3 +4,5 @@ __pycache__/
 /IMDB Dataset.csv
 /data/raw/
 .DS_Store
+/data/processed/cleaned_reviews.csv
+/movie_reviews.csv
