@@ -7,9 +7,10 @@
 **Project Topic:** Movie Reviews Sentiment Analysis  
 **Dataset:** IMDB Movie Reviews Dataset  
 
-**Team Members:**
-1. Imrah — Roll No: 0293
-2. Ajwa
+## Team Members
+
+1. **Imrah Maqsood** — Roll No: 0293
+2. **Ajwa**
 
 **Submission Date:** 8 November 2026
 
@@ -272,7 +273,7 @@ To reproduce the process:
 1. Install Python.
 2. Create and activate a virtual environment.
 3. Install dependencies using `pip install -r requirements.txt`.
-4. Place the original dataset in `data/raw/`.
+4. Place the original dataset file named `IMDB Dataset.csv` in the main project folder.
 5. Run `python src/download_dataset.py`.
 6. Run `python src/tokenization.py`.
 7. Run `python src/clean_text.py`.
@@ -289,4 +290,13 @@ The cleaning pipeline applies Unicode normalization, noise removal, contraction 
 
 The vocabulary decreased from 100,678 to 70,147 unique words after cleaning, representing approximately a 30.3% reduction.
 
-The cleaned dataset is now prepared for the
+The cleaned dataset is now prepared for subsequent sentiment analysis tasks.
+
+# 8. Team Contribution Statement
+
+This project was completed collaboratively by two team members.
+
+- **Imrah Maqsood (Roll No: 0293):** Participated in dataset exploration, tokenization comparison, text preprocessing, implementation, testing, and report preparation.
+- **Ajwa:** Participated in project development, dataset exploration, text preprocessing, testing, and documentation.
+
+Both team members worked together on the assignment and contributed to completing the project deliverables.

@@ -366,13 +366,17 @@ code {
     });
   </script>
 <h1 id="assignment-1-report">Assignment 1 Report</h1>
-<h2 id="movie-reviews-sentiment-analysis-using-natural-language-processing-nlp">Movie Reviews Sentiment Analysis Using Natural Language Processing (NLP)</h2>
+<h1 id="movie-reviews-sentiment-analysis-using-natural-language-processing-nlp">Movie Reviews Sentiment Analysis Using Natural Language Processing (NLP)</h1>
 <p><strong>Course:</strong> Natural Language Processing<br>
 <strong>Assignment:</strong> 1 – Dataset Exploration and Text Preprocessing<br>
 <strong>Project Topic:</strong> Movie Reviews Sentiment Analysis<br>
-<strong>Dataset:</strong> IMDB Movie Reviews Dataset<br>
-<strong>Team Members:</strong> Add your team members' names here<br>
-<strong>Submission Date:</strong> 8 November 2026</p>
+<strong>Dataset:</strong> IMDB Movie Reviews Dataset</p>
+<h2 id="team-members">Team Members</h2>
+<ol>
+<li><strong>Imrah Maqsood</strong> — Roll No: 0293</li>
+<li><strong>Ajwa</strong></li>
+</ol>
+<p><strong>Submission Date:</strong> 8 November 2026</p>
 <hr>
 <h1 id="1-introduction">1. Introduction</h1>
 <p>Natural Language Processing (NLP) is a field of Artificial Intelligence that enables computers to understand and process human language.</p>
@@ -396,14 +400,14 @@ code {
 <p>Libraries used:</p>
 <ul>
 <li>Pandas: Loading and processing CSV data.</li>
-<li>NLTK: Porter stemming.</li>
-<li>re: Regular expressions and tokenization.</li>
+<li>NLTK: Tokenization and Porter stemming.</li>
+<li>re: Regular expressions and text pattern matching.</li>
 <li>unicodedata: Unicode normalization.</li>
 <li>pathlib: Managing file paths.</li>
 </ul>
 <p>Dependencies are listed in <code>requirements.txt</code>.</p>
 <h2 id="23-dataset-loading">2.3 Dataset Loading</h2>
-<p>The dataset was loaded using Pandas. The loading script checks whether the raw dataset exists, reads the CSV file, standardizes column names, removes missing values, and saves the prepared dataset.</p>
+<p>The dataset was loaded using Pandas. The loading script reads the raw CSV file, prepares the dataset, and saves the processed dataset.</p>
 <p>The script is available at:</p>
 <p><code>src/download_dataset.py</code></p>
 <h1 id="3-dataset-exploration">3. Dataset Exploration</h1>
@@ -465,7 +469,7 @@ code {
 </table>
 <p>Each class represents 50% of the dataset. This balance is useful because neither sentiment class dominates the dataset.</p>
 <h2 id="33-vocabulary-analysis">3.3 Vocabulary Analysis</h2>
-<p>Vocabulary analysis was performed on the first 1,000 reviews.</p>
+<p>Vocabulary analysis was performed on the first 1,000 reviews using word extraction.</p>
 <table>
 <thead>
 <tr>
@@ -547,60 +551,89 @@ code {
 <p>The word <code>br</code> appears because HTML line-break tags such as <code>&lt;br /&gt;</code> are present in the original reviews.</p>
 <h1 id="4-tokenization-and-regular-expressions">4. Tokenization and Regular Expressions</h1>
 <h2 id="41-tokenization-methods">4.1 Tokenization Methods</h2>
-<p>Two tokenization methods were tested on the first 1,000 reviews.</p>
-<p><strong>Method 1: Whitespace Tokenization</strong></p>
-<p>Whitespace tokenization uses the <code>split()</code> method to divide text wherever whitespace occurs.</p>
-<p><strong>Method 2: Regex-Based Tokenization</strong></p>
-<p>Regex tokenization uses the following pattern:</p>
-<p><code>\b\w+\b</code></p>
-<p>It extracts individual words and numbers based on word boundaries.</p>
+<p>Two tokenization methods were compared using the first 1,000 reviews of the IMDB dataset.</p>
+<p><strong>Method 1: Custom Regex Tokenizer</strong></p>
+<p>A custom regular expression tokenizer was implemented to identify words, numbers, URLs, and HTML tags. It also keeps contractions and hyphenated words together as tokens.</p>
+<p><strong>Method 2: NLTK Treebank Tokenizer</strong></p>
+<p>The NLTK Treebank Word Tokenizer was used to split text into tokens. It separates punctuation and handles contractions according to Treebank tokenization rules.</p>
 <h2 id="42-tokenization-comparison">4.2 Tokenization Comparison</h2>
+<p>The following results were obtained from the first 1,000 reviews:</p>
 <table>
 <thead>
 <tr>
-<th>Method</th>
-<th style="text-align:right">Total Tokens</th>
+<th>Measurement</th>
+<th style="text-align:right">Regex Tokenizer</th>
+<th style="text-align:right">NLTK Treebank Tokenizer</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Whitespace tokenization</td>
-<td style="text-align:right">231,265</td>
+<td>Total tokens</td>
+<td style="text-align:right">233,440</td>
+<td style="text-align:right">270,980</td>
 </tr>
 <tr>
-<td>Regex tokenization</td>
-<td style="text-align:right">239,546</td>
+<td>Unique tokens</td>
+<td style="text-align:right">22,193</td>
+<td style="text-align:right">25,325</td>
+</tr>
+<tr>
+<td>Type-token ratio</td>
+<td style="text-align:right">0.0951</td>
+<td style="text-align:right">0.0935</td>
 </tr>
 </tbody>
 </table>
-<p>Regex tokenization produced more tokens because it separates some punctuation-connected words and contractions.</p>
+<p>The Type-Token Ratio (TTR) was calculated by dividing the number of unique tokens by the total number of tokens.</p>
+<p>The NLTK tokenizer produced more tokens because it separates punctuation and some contractions into individual tokens.</p>
 <p>For example:</p>
 <ul>
-<li>Whitespace: <code>you'll</code></li>
-<li>Regex: <code>you</code>, <code>ll</code></li>
+<li>Regex: <code>you'll</code></li>
+<li>NLTK: <code>you</code>, <code>'ll</code></li>
 </ul>
-<p>Similarly, the hyphenated word <code>light-hearted</code> becomes <code>light</code> and <code>hearted</code>.</p>
-<h2 id="43-useful-regular-expressions">4.3 Useful Regular Expressions</h2>
-<p>Three regular expressions were examined.</p>
-<p><strong>1. HTML Tag Removal</strong></p>
-<p>Pattern:</p>
-<p><code>&lt;[^&gt;]+&gt;</code></p>
-<p>Purpose: Detects HTML tags such as <code>&lt;br /&gt;</code> so they can be removed from reviews.</p>
-<p><strong>2. Punctuation and Special Character Detection</strong></p>
-<p>Pattern:</p>
-<p><code>[^a-zA-Z0-9\s]</code></p>
-<p>Purpose: Detects characters that are not English letters, numbers, or whitespace.</p>
-<p><strong>3. Word Extraction</strong></p>
-<p>Pattern:</p>
-<p><code>\b\w+\b</code></p>
-<p>Purpose: Extracts individual words and numbers from text.</p>
+<h2 id="43-dataset-specific-regular-expression-patterns">4.3 Dataset-Specific Regular Expression Patterns</h2>
+<p>The following patterns were used to identify common structures in the dataset:</p>
+<ol>
+<li><strong>HTML Tags:</strong> <code>&lt;[^&gt;]+&gt;</code> identifies HTML tags such as <code>&lt;br /&gt;</code>.</li>
+<li><strong>URLs:</strong> <code>https?://\S+|www\.\S+</code> identifies web links.</li>
+<li><strong>Rating Expressions:</strong> <code>\b\d+(?:\.\d+)?\s*/\s*10\b</code> identifies ratings such as <code>8/10</code>.</li>
+<li><strong>Hyphenated Words:</strong> <code>\b\w+(?:-\w+)+\b</code> identifies words such as <code>light-hearted</code>.</li>
+</ol>
+<p>In the first 1,000 reviews, the following patterns were counted:</p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th style="text-align:right">Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML break tags</td>
+<td style="text-align:right">4,124</td>
+</tr>
+<tr>
+<td>Rating expressions</td>
+<td style="text-align:right">75</td>
+</tr>
+<tr>
+<td>URLs</td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td>Hyphenated words</td>
+<td style="text-align:right">1,523</td>
+</tr>
+</tbody>
+</table>
 <h2 id="44-dataset-specific-tokenization-challenges">4.4 Dataset-Specific Tokenization Challenges</h2>
 <p>Two important challenges were identified:</p>
 <ol>
-<li>HTML tags: Reviews contain HTML tags such as <code>&lt;br /&gt;&lt;br /&gt;</code>, which can create unwanted tokens if they are not removed.</li>
-<li>Contractions and hyphenated words: Words such as <code>you'll</code> and <code>light-hearted</code> may be treated differently by different tokenization methods.</li>
+<li><strong>HTML Tags:</strong> Reviews contain HTML tags such as <code>&lt;br /&gt;</code>. These tags can produce unwanted tokens if they are not handled properly.</li>
+<li><strong>Contractions and Hyphenated Words:</strong> Expressions such as <code>you'll</code> and <code>light-hearted</code> can be split differently by different tokenizers.</li>
 </ol>
-<p>These challenges show why text preprocessing is important before sentiment analysis.</p>
+<h2 id="45-conclusion">4.5 Conclusion</h2>
+<p>The comparison shows that tokenization methods produce different results depending on how they handle punctuation, contractions, HTML tags, and hyphenated words. The custom Regex tokenizer and NLTK Treebank tokenizer both provide useful approaches for preparing movie reviews for sentiment analysis.</p>
 <h1 id="5-text-cleaning-pipeline">5. Text Cleaning Pipeline</h1>
 <p>A reusable text-cleaning function was implemented in:</p>
 <p><code>src/clean_text.py</code></p>
@@ -611,12 +644,14 @@ code {
 <p>HTML tags are removed using regular expressions.</p>
 <p><strong>3. Lowercase Conversion</strong></p>
 <p>All text is converted to lowercase so that words with different capitalization are treated consistently.</p>
-<p><strong>4. Tokenization</strong></p>
+<p><strong>4. Noise Removal and Contraction Handling</strong></p>
+<p>URLs and rating expressions are removed. Common contractions are expanded before tokenization. For example, <code>you'll</code> is expanded to <code>you will</code>.</p>
+<p><strong>5. Tokenization</strong></p>
 <p>Words and numbers are extracted using a regular expression.</p>
-<p><strong>5. Stopword Removal</strong></p>
+<p><strong>6. Stopword Removal</strong></p>
 <p>Common words that provide limited information are removed using a manually defined stopword list.</p>
-<p>Negation words such as <code>not</code>, <code>no</code>, and <code>never</code> are deliberately preserved because they can change the meaning of a movie review.</p>
-<p><strong>6. Stemming</strong></p>
+<p>Negation words such as <code>not</code> and <code>no</code> are preserved because they can change the meaning of a movie review.</p>
+<p><strong>7. Stemming</strong></p>
 <p>Porter Stemmer from NLTK is used to reduce words to their stems.</p>
 <p>For example, words such as <code>watching</code> and <code>watched</code> may be reduced to a common stem.</p>
 <h2 id="51-cleaning-function">5.1 Cleaning Function</h2>
@@ -634,55 +669,58 @@ code {
 <tbody>
 <tr>
 <td>Before cleaning</td>
-<td style="text-align:right">101,944</td>
+<td style="text-align:right">100,678</td>
 </tr>
 <tr>
 <td>After cleaning</td>
-<td style="text-align:right">70,331</td>
+<td style="text-align:right">70,147</td>
 </tr>
 <tr>
-<td>Reduction</td>
-<td style="text-align:right">31,613</td>
+<td>Vocabulary reduction</td>
+<td style="text-align:right">30,531</td>
+</tr>
+<tr>
+<td>Percentage reduction</td>
+<td style="text-align:right">Approximately 30.3%</td>
 </tr>
 </tbody>
 </table>
-<p>The vocabulary decreased by approximately 31%.</p>
-<p>This reduction occurred because HTML tags, punctuation, common stopwords, and different word forms were handled during preprocessing.</p>
+<p>The vocabulary decreased because HTML tags, URLs, rating expressions, common stopwords, and different word forms were handled during preprocessing.</p>
 <h2 id="53-example-of-cleaning">5.3 Example of Cleaning</h2>
 <p><strong>Original review:</strong></p>
-<p><code>One of the other reviewers has mentioned that after watching just 1 Oz episode you'll be hooked.</code></p>
+<p>&quot;One of the other reviewers has mentioned that after watching just 1 Oz episode you'll be hooked.&quot;</p>
 <p><strong>Cleaned review:</strong></p>
-<p><code>one other review mention after watch just 1 oz episod ll hook</code></p>
-<p>The cleaned text contains lowercase tokens, fewer unnecessary words, and stemmed word forms.</p>
+<p><code>one other review mention after watch just 1 oz episod will hook</code></p>
+<p>The cleaned text contains lowercase tokens, expanded contractions, fewer unnecessary words, and stemmed word forms.</p>
 <h1 id="6-output-and-reproducibility">6. Output and Reproducibility</h1>
 <p>The cleaned dataset was successfully saved as:</p>
 <p><code>data/processed/cleaned_reviews.csv</code></p>
 <p>The output contains the original review, sentiment label, and an additional <code>cleaned_review</code> column.</p>
-<p>The project uses separate scripts for dataset preparation and text cleaning.</p>
+<p>The project uses separate scripts for dataset preparation, tokenization comparison, and text cleaning.</p>
 <p>To reproduce the process:</p>
 <ol>
 <li>Install Python.</li>
 <li>Create and activate a virtual environment.</li>
 <li>Install dependencies using <code>pip install -r requirements.txt</code>.</li>
-<li>Place the original dataset in <code>data/raw/</code>.</li>
+<li>Place the original dataset file named <code>IMDB Dataset.csv</code> in the main project folder.</li>
 <li>Run <code>python src/download_dataset.py</code>.</li>
+<li>Run <code>python src/tokenization.py</code>.</li>
 <li>Run <code>python src/clean_text.py</code>.</li>
 </ol>
-<p>The scripts generate the prepared and cleaned datasets automatically.</p>
+<p>The scripts generate the prepared and cleaned datasets and display tokenization comparison results.</p>
 <h1 id="7-conclusion">7. Conclusion</h1>
-<p>In this assignment, we explored the IMDB movie review dataset and implemented a complete text preprocessing pipeline.</p>
-<p>We examined dataset statistics, sentiment distribution, vocabulary size, and tokenization methods. We also identified common text problems such as HTML tags, contractions, and hyphenated words.</p>
-<p>The cleaning pipeline applies Unicode normalization, HTML removal, lowercase conversion, tokenization, stopword removal, and Porter stemming.</p>
-<p>The vocabulary decreased from 101,944 to 70,331 unique words after cleaning.</p>
-<p>The cleaned dataset is now prepared for the next phase of the sentiment analysis project.</p>
-<h1 id="8-contribution-statement">8. Contribution Statement</h1>
-<p><strong>Team Members and Contributions:</strong></p>
+<p>In this assignment, we explored the IMDB movie review dataset and implemented a text preprocessing pipeline.</p>
+<p>We examined dataset statistics, sentiment distribution, vocabulary size, and tokenization methods. We also identified common text problems such as HTML tags, contractions, URLs, ratings, and hyphenated words.</p>
+<p>The cleaning pipeline applies Unicode normalization, noise removal, contraction handling, lowercase conversion, tokenization, stopword removal, and Porter stemming.</p>
+<p>The vocabulary decreased from 100,678 to 70,147 unique words after cleaning, representing approximately a 30.3% reduction.</p>
+<p>The cleaned dataset is now prepared for subsequent sentiment analysis tasks.</p>
+<h1 id="8-team-contribution-statement">8. Team Contribution Statement</h1>
+<p>This project was completed collaboratively by two team members.</p>
 <ul>
-<li>Member 1: [Add name and actual contribution]</li>
-<li>Member 2: [Add name and actual contribution]</li>
-<li>Member 3: [Add name and actual contribution]</li>
+<li><strong>Imrah Maqsood (Roll No: 0293):</strong> Participated in dataset exploration, tokenization comparison, text preprocessing, implementation, testing, and report preparation.</li>
+<li><strong>Ajwa:</strong> Participated in project development, dataset exploration, text preprocessing, testing, and documentation.</li>
 </ul>
-<p>All contributions should reflect the actual work completed by each team member.</p>
+<p>Both team members worked together on the assignment and contributed to completing the project deliverables.</p>
 
 </body>
 </html>
