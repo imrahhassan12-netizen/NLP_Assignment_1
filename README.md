@@ -2,7 +2,7 @@
 
 ## Assignment 1 – Dataset Exploration and Text Preprocessing
 
-### Project Overview
+## Project Overview
 
 This project explores and preprocesses the IMDB Movie Reviews Dataset using Natural Language Processing (NLP) techniques.
 
@@ -11,19 +11,22 @@ The dataset contains movie reviews labelled as positive or negative. The purpose
 ## Dataset Information
 
 - **Dataset:** IMDB Movie Reviews Dataset
-- **Source:** https://zenodo.org/records/7928582
+- **Source:** [Zenodo – IMDB Dataset](https://zenodo.org/records/7928582)
 - **Total Reviews:** 50,000
 - **Positive Reviews:** 25,000
 - **Negative Reviews:** 25,000
 - **Format:** CSV
 
-**Note:** The original raw dataset is not included in this repository. Download it from the source and place it in `data/raw/`.
+**Note:** The original raw dataset is not included in this repository. Download it from the source and place the file named `IMDB Dataset.csv` in the project root directory, alongside `README.md`.
+
+Please refer to the Zenodo record for the dataset's licence and usage conditions.
 
 ## Technologies and Libraries
 
 - Python
 - Pandas
 - NLTK
+- Matplotlib
 - Regular Expressions (`re`)
 - Unicode Normalization (`unicodedata`)
 
@@ -33,7 +36,6 @@ The dataset contains movie reviews labelled as positive or negative. The purpose
 NLP_Assignment_1/
 │
 ├── data/
-│   ├── raw/
 │   └── processed/
 │
 ├── src/
@@ -41,12 +43,16 @@ NLP_Assignment_1/
 │   ├── tokenization.py
 │   └── clean_text.py
 │
+├── notebooks/
+│   └── dataset_exploration.ipynb
+│
 ├── reports/
-│   └── assignment1_report.md
+│   ├── assignment1_report.md
+│   └── assignment1_report.pdf
 │
 ├── figures/
-│
 ├── requirements.txt
+├── .gitignore
 └── README.md
 ```
 
@@ -83,13 +89,9 @@ pip install -r requirements.txt
 
 Download the IMDB dataset from:
 
-https://zenodo.org/records/7928582
+[https://zenodo.org/records/7928582](https://zenodo.org/records/7928582)
 
-Place the original CSV file inside:
-
-```text
-data/raw/
-```
+Place the downloaded CSV file in the project root directory.
 
 The expected filename is:
 
@@ -115,7 +117,7 @@ python src/tokenization.py
 python src/clean_text.py
 ```
 
-The processed and cleaned dataset will be saved in:
+The processed and cleaned datasets are saved in:
 
 ```text
 data/processed/
@@ -133,6 +135,11 @@ The exploration includes:
 - Vocabulary analysis.
 - Frequent word analysis.
 - Zipf's Law and long-tail distribution observations.
+- Identification of messy text patterns.
+
+The exploration notebook is available at:
+
+`notebooks/dataset_exploration.ipynb`
 
 ## Tokenization
 
@@ -157,22 +164,22 @@ The cleaning pipeline includes:
 - Stopword removal while preserving negation words.
 - Porter stemming.
 
-The cleaned dataset is saved as `cleaned_reviews.csv`.
+The cleaned dataset is saved as `cleaned_reviews.csv` in `data/processed/`.
 
 ## Team Members
 
 - **Imrah** – Roll No: 0293
-- **Ajwa**
+- **Ajwa** – Team Member
 
 ## Assignment Deliverables
 
-- Dataset exploration.
+- Dataset exploration notebook.
 - Tokenization comparison.
 - Regular expression analysis.
 - Reusable text-cleaning pipeline.
-- Cleaned dataset.
-- Assignment report.
+- Cleaned dataset generation script.
+- Assignment report in Markdown and PDF formats.
 
 ## Repository
 
-GitHub: https://github.com/imrahhassan12-netizen/NLP_Assignment_1
+GitHub: [NLP_Assignment_1](https://github.com/imrahhassan12-netizen/NLP_Assignment_1)
